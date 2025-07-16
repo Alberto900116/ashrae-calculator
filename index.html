@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASHRAE Calculator</title>
+</head>
+<body>
+    <!-- Contenedor para la calculadora -->
+    <div id="ashrae-calculator">
+        <div style="text-align: center; padding: 2rem; color: #6b7280;">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🧮</div>
+            <div>Loading ASHRAE Calculator...</div>
+            <div style="font-size: 0.875rem; margin-top: 0.5rem;">Please wait while the application loads</div>
+        </div>
+    </div>
+
+    <!-- Cargar el script externo desde GitHub Pages -->
+    <script src="https://Alberto900116.github.io/ashrae-calculator/ashrae-calculator.js"></script>
+    
+    <!-- Inicializar la aplicación -->
+    <script>
+        // Esperar a que el script se cargue completamente
+        window.addEventListener('load', function() {
+            // Verificar que la librería esté cargada
+            if (window.ASHRAECalculator) {
+                // Opcional: Personalizar configuración antes de inicializar
+                window.ASHRAECalculator.customize({
+                    texts: {
+                        title: 'ASHRAE Ventilation Calculator', // Cambiar aquí para personalizar
+                        // Puedes agregar más personalizaciones aquí
+                    },
+                    theme: {
+                        primary: '#2563eb', // Cambiar color primario aquí
+                        secondary: '#059669'
+                    }
+                });
+
+                // Opcional: Agregar espacios ASHRAE personalizados
+                window.ASHRAECalculator.addSpaceTypes({
+                    'Custom Office Type': { density: 8, peopleRate: 6, areaRate: 0.08, category: 'Custom' }
+                    // Agregar más espacios personalizados aquí
+                });
+
+                // Inicializar la aplicación
+                const calculator = window.ASHRAECalculator.init('ashrae-calculator');
+                
+                if (calculator) {
+                    console.log('ASHRAE Calculator loaded successfully!');
+                } else {
+                    console.error('Failed to initialize ASHRAE Calculator');
+                }
+            } else {
+                console.error('ASHRAE Calculator library not loaded');
+                document.getElementById('ashrae-calculator').innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #dc2626;">
+                        <h2>Error Loading Calculator</h2>
+                        <p>Unable to load the ASHRAE Calculator. Please check your internet connection.</p>
+                        <p><small>If the problem persists, please contact support.</small></p>
+                    </div>
+                `;
+            }
+        });
+
+        // Manejo de errores
+        window.addEventListener('error', function(event) {
+            console.error('JavaScript Error:', event.error);
+        });
+    </script>
+</body>
+</html>
